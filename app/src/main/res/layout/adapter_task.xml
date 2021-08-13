@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.widget.CheckBox" />
+
+        <variable
+            name="task"
+            type="com.gabriel.personal.projects.todolist.data.db.entity.Task" />
+
+        <variable
+            name="viewModel"
+            type="com.gabriel.personal.projects.todolist.ui.todolist.ToDoListViewModel" />
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.CardView"
+        android:layout_margin="8dp"
+        android:onClick="@{() -> viewModel.navigateToEditTask(task)}"
+        app:onLongClickTask="@{() -> viewModel.showSnackbar(task)}"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:padding="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            tools:layout_conversion_absoluteHeight="48dp"
+            tools:layout_conversion_absoluteWidth="361dp"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="8dp">
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/complete_checkBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="@{task.complete}"
+                android:onClick="@{(view) ->  viewModel.completeTask(task,  ((CheckBox)view).isChecked())}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/text_view_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:padding="8dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                app:completedTask="@{task.complete}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/complete_checkBox"
+                app:layout_constraintTop_toTopOf="parent"
+                app:taskTitle="@{task}"
+                tools:text="my title" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+</layout>
